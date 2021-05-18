@@ -10,23 +10,20 @@
 (define TOPIC "clojure")
 (define TOPIC_AREA_TABTREE_PARTS
           (list
-            ; (TabtreePart "../../../worlds/cs_world/cs_vk.tree" 'информационные_технологии.разработка_по.операционные_системы)
-            ; (TabtreePart "../../../worlds/cs_world/cs_vk.tree" 'информационные_технологии.системное_администрирование)
-            ; (TabtreePart "../../../worlds/cs_world/cs_vk.tree" 'информационные_технологии.open_source)
-            (TabtreePart "../../../worlds/cs_world/cs_vk.tree" 'all)
-            (TabtreePart "../../../worlds/cs_world/cs_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp.clojure)
+            (TabtreePart "/home/denis/projects/worlds/cs_world/cs_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/worlds/cs_world/cs_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp.clojure)
             ))
 (define LOCAL_AREA_TABTREE_PARTS
           (list
-            (TabtreePart "../../../worlds/cs_world/_local/rostova_cs_vk.tree" 'all)
-            (TabtreePart "../../../worlds/_world/_universities_local/rostova_uni_vk.tree" 'all)
-            (TabtreePart "../../../worlds/_world/_local/rostova_vk.tree" 'all)))
+            (TabtreePart "/home/denis/projects/worlds/cs_world/_local/rostova_cs_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/worlds/_world/_universities_local/rostova_uni_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/worlds/_world/_local/rostova_vk.tree" 'all)))
 (define FRIENDS_TABTREE_PARTS
           (list
-            (TabtreePart "../../../denis_personal/my_knowledge/people.tree" 'all)))
+            (TabtreePart "/home/denis/denis_personal/my_knowledge/people.tree" 'all)))
 
 ; how frequently to write to the file, when changing persistence
-(define FILE_WRITE_FREQUENCY 500)
+(define FILE_WRITE_FREQUENCY 50)
 
 ; cache directory for persistent data:
 ; (define CACHE_DIR "_cache")

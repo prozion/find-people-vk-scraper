@@ -156,7 +156,7 @@
   (map-hash (λ (k v) (values k (hash-union (hash 'count cnt) v)))
             ext-users))
 
-; knowledge-takers format: (list (hash 'file <path-to-tabtre> 'take '<path-to-section-extracted>) ...)
+; knowledge-takers format: (list (hash 'file <path-to-tabtree> 'take '<path-to-section-extracted>) ...)
 (define-catch (get-items-by-tabtree-parts tabtree-parts)
   (for/fold
     ((res empty))

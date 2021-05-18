@@ -19,7 +19,7 @@
       (items-to-add (filter (λ (item) (indexof? not-done-new-ids ($ id item))) new-items)))
     (append
       items-to-stay
-      (add-uids-to-tabtree
+      (get-extended-groups
           #:max-users-limit MAX_MEMBERS_IN_SCANNED_GROUPS
           items-to-add))))
 
@@ -30,7 +30,7 @@
   `(begin
     (persistent ,persistent-name)
     (let* ((current-extended-items (,persistent-name)))
-      (,persistent-name (add-items current-extended-items (get-items-with-knowledge-takers ,tabtree-parts)))
+      (,persistent-name (add-items current-extended-items (get-items-by-tabtree-parts ,tabtree-parts)))
       (void))))
 
 (add-extended-items-to-persistent topic-items TOPIC_AREA_TABTREE_PARTS)
