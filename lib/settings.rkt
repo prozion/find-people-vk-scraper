@@ -3,6 +3,7 @@
 (require odysseus)
 (require (prefix-in vk: odysseus/api/vk))
 (require (file "~/.private/APIs.rkt"))
+(require "types.rkt")
 
 (provide (all-defined-out))
 

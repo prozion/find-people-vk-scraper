@@ -8,6 +8,7 @@
 (require odysseus/api/csv)
 
 (require "settings.rkt")
+(require "types.rkt")
 
 (require (for-syntax odysseus))
 
