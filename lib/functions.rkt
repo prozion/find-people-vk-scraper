@@ -2,21 +2,12 @@
 
 (require compatibility/defmacro)
 (require odysseus)
-; (require/typed odysseus
-;     (->string (-> Any String))
-;     (split (-> String String (Listof String)))
-;     (hash-ref* (-> HashTable Any Any))
-;     (one-element? (-> (Listof Any) Boolean))
-;     (implode (-> (Listof String) String String))
-; )
-
 (require tabtree)
 (require tabtree/utils)
-(require odysseus/scrap/vk)
-(require odysseus/report/csv)
+(require odysseus/api/vk)
+(require odysseus/api/csv)
 
 (require "settings.rkt")
-(require "types.rkt")
 
 (require (for-syntax odysseus))
 
