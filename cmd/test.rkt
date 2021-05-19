@@ -7,6 +7,12 @@
 (require "../lib/settings.rkt")
 (require compatibility/defmacro)
 
-(persistent topic-items)
+; (persistent topic-items)
+; (persistent h-topic-items)
+(persistent local-items)
+; (persistent h-local-items)
 
-(--- (topic-items))
+; (h-topic-items (first (topic-items)))
+; (h-local-items (first (local-items)))
+
+(--- (hash-keys (first (local-items))))

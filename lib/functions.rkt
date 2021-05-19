@@ -232,3 +232,6 @@
             (else
                 (pushr res gid))))
         (else res)))))
+
+(define (gid->url gid)
+  (format "https://vk.com/public~a" gid))

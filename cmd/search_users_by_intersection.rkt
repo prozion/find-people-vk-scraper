@@ -1,6 +1,8 @@
 #lang racket
 
 (require odysseus)
+(require odysseus/api/vk)
+(require odysseus/api/csv)
 (require tabtree)
 
 (require "../lib/functions.rkt")
@@ -9,7 +11,23 @@
 
 (persistent local-items)
 (persistent topic-items)
-(persistent h-uid-local-score)
+(persistent h-local-uid-score)
+
+(define-catch (get-score items)
+  (--- (length items))
+  (if (empty? items)
+    (hash)
+    (for/fold
+      ((res1 (hash)))
+      ((item items))
+      (let* ((uids ($ uids item)))
+        (display "+") (flush-output)
+        (if-not uids
+          res1
+          (for/fold
+              ((res2 res1))
+              ((uid uids))
+              (hash-set res2 uid (+ 1 (hash-ref res2 uid 0)))))))))
 
 (define-catch (in-what-groups-is-this-uid items uid #:pick-group-name? (pick-group-name? #f))
   (for/fold
@@ -31,43 +49,43 @@
                 (pushr res vk-id))))
         (else res)))))
 
-(define (search-users-by-intersection
-          #:local-vk-groups local-vk-groups
-          #:topic-vk-groups topic-vk-groups
-          #:local-min-membership (local-min-membership 3)
-          #:result-csv-name (result-csv-name "result")
-        )
+(define-catch (search-users-by-intersection
+                  #:local-scored-uids local-scored-uids
+                  #:local-vk-groups local-vk-groups
+                  #:topic-vk-groups topic-vk-groups
+                  #:result-csv-name (result-csv-name "result")
+                )
   (let* (
-        (groups-with-uids (filter
-                            (λ (x) ($ uids x))
-                            (extended-vk-groups)))
-        ; (_ (--- (length groups-with-uids)))
-        ; (_ (--- (format "Total local uids: ~a" (length (hash-keys (h-uid-score))))))
-        (locals-uids (hash-keys (hash-filter (λ (k v) (>= v local-min-membership)) (h-uid-score))))
+        (locals-uids (hash-keys (local-scored-uids)))
         (_ (--- (format "Total filtered local uids: ~a" (length locals-uids))))
         (locals-in-topic-groups (for/fold
                                         ((res empty))
-                                        ((item groups-with-uids))
+                                        ((item topic-vk-groups))
                                         (append res (intersect ($ uids item) locals-uids))))
-        (locals-in-topic-groups-score (frequency-hash locals-in-topic-groups))
-        (uid-score (h-uid-score))
-        (locals-in-topic-groups-score (hash-map
-                                        (λ (k v)
-                                          (values
-                                            k
-                                            (hash 'url (gid->url k)
-                                                  'gids (implode
-                                                          (in-what-groups-is-this-uid groups-with-uids k #:pick-group-name? #t)
-                                                          ", ")
-                                                  'local_count (hash-ref uid-score k 0)
-                                                  'topic_count v)))
-                                        locals-in-topic-groups-score))
+        (locals-in-topic-groups-scored (frequency-hash locals-in-topic-groups))
+        (locals-in-topic-groups (hash-map
+                                  (λ (uid score)
+                                    (let* ((local-groups (in-what-groups-is-this-uid local-vk-groups uid #:pick-group-name? #t))
+                                          (topic-groups (in-what-groups-is-this-uid topic-vk-groups uid #:pick-group-name? #t)))
+                                      (values
+                                        uid
+                                        (hash 'url (gid->url uid)
+                                              'local_groups (implode local-groups ", ")
+                                              'topic_groups (implode topic-groups ", ")
+                                              'local_count score
+                                              'topic_count (length topic-groups)))))
+                                  locals-in-topic-groups-scored))
         )
-    (write-csv-file #:delimeter "\t" '(url gids local_count elx_count) locals-in-topic-groups-score (str "../" RESULT_DIR "/" result-csv-name ".csv"))
+    (write-csv-file #:delimeter "\t" '(url local_groups topic_groups local_count topic_count) locals-in-topic-groups (str "../" RESULT_DIR "/" result-csv-name ".csv"))
     #t
     ))
 
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    (h-local-uid-score (get-score (local-items)))
+    (exit)
+
     (search-users-by-intersection
+        #:local-scored-uids (hash-filter (λ (k v) (>= v MIN_MEMBER)) (h-local-uid-score))
         #:local-vk-groups (local-items)
         #:topic-vk-groups (topic-items)
         #:local-min-membership 3
