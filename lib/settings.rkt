@@ -7,17 +7,20 @@
 
 (provide (all-defined-out))
 
-(define TOPIC "clojure")
+(define TOPIC "history")
 (define TOPIC_AREA_TABTREE_PARTS
           (list
-            (TabtreePart "/home/denis/projects/worlds/cs_world/cs_vk.tree" 'all)
-            (TabtreePart "/home/denis/projects/worlds/cs_world/cs_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp.clojure)
+            ; (TabtreePart "/home/denis/projects/worlds/hi_world/hi_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp)
+            (TabtreePart "/home/denis/projects/worlds/history-facts/hi_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/taganoskop/knowledge/history.tree" 'all)
             ))
 (define LOCAL_AREA_TABTREE_PARTS
           (list
-            (TabtreePart "/home/denis/projects/worlds/cs_world/_local/rostova_cs_vk.tree" 'all)
-            (TabtreePart "/home/denis/projects/worlds/_world/_universities_local/rostova_uni_vk.tree" 'all)
-            (TabtreePart "/home/denis/projects/worlds/_world/_local/rostova_vk.tree" 'all)))
+            ; (TabtreePart "/home/denis/projects/worlds/cs_world/_local/rostova_cs_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/worlds/general-facts/_universities_local/rostova_uni_vk.tree" 'all)
+            (TabtreePart "/home/denis/projects/taganoskop/knowledge/taganrog.tree" 'all)
+            ; (TabtreePart "/home/denis/projects/worlds/_world/_local/rostova_vk.tree" 'all)
+            ))
 (define FRIENDS_TABTREE_PARTS
           (list
             (TabtreePart "/home/denis/denis_personal/my_knowledge/people.tree" 'all)))

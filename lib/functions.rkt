@@ -2,8 +2,8 @@
 
 (require compatibility/defmacro)
 (require odysseus)
-(require tabtree)
-(require tabtree/utils)
+(require tabtree/tabtree1)
+(require tabtree/utils1)
 (require odysseus/api/vk)
 (require odysseus/api/csv)
 
@@ -235,3 +235,16 @@
 
 (define (gid->url gid)
   (format "https://vk.com/public~a" gid))
+
+(define-catch (select-uids h-uid-score #:filter selection-lambda)
+  (map
+    car
+    (sort
+      (hash->list
+        (for/fold
+          ((res (hash)))
+          (((k v) h-uid-score))
+          (cond
+            ((selection-lambda k v) (hash-set res k v))
+            (else res))))
+      (λ (a b) (> (cdr a) (cdr b))))))

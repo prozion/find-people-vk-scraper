@@ -1,7 +1,7 @@
 #lang racket
 
 (require odysseus)
-(require tabtree)
+(require tabtree/tabtree1)
 (require racket/serialize)
 (require (rename-in racket/hash (hash-union hash-union-racket)))
 
@@ -25,23 +25,10 @@
                 ((uid uids))
                 (hash-set res2 uid (+ 1 (hash-ref res2 uid 0))))))))
 
-(define (get-uids-selected h-uid-score)
-  ; берем только тех пользователей, которые входят в MIN_MEMBER и более групп
-  (opt/uniques
-    (select-uids
-      h-uid-score
-      #:filter (λ (k v)
-                  (>= v MIN_MEMBER)))))
-
 (define-catch (score-uids)
   (--- "getting a score of users")
-  (let* ((uid-score (hash-filter
-                          (λ (k v) (>= v MIN_MEMBER))
-                          (get-score (h-local-items)))))
+  (let* ((uid-score (get-score (h-local-items))))
     (h-local-uid-score uid-score)
-
-    ; (--- "getting user ids for scanning")
-    (uids-selected (get-uids-selected uid-score))
     #t))
 
 (score-uids)

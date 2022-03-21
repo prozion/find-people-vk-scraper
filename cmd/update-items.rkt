@@ -1,7 +1,7 @@
 #lang racket
 
 (require odysseus)
-(require tabtree)
+(require tabtree/tabtree1)
 
 (require "../lib/functions.rkt")
 (require "../lib/settings.rkt")
@@ -33,5 +33,5 @@
       (,persistent-name (add-items current-extended-items (get-items-by-tabtree-parts ,tabtree-parts)))
       (void))))
 
-(add-extended-items-to-persistent h-topic-items TOPIC_AREA_TABTREE_PARTS)
+; (add-extended-items-to-persistent h-topic-items TOPIC_AREA_TABTREE_PARTS)
 (add-extended-items-to-persistent h-local-items LOCAL_AREA_TABTREE_PARTS)

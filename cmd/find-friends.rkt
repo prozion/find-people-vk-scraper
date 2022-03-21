@@ -2,7 +2,7 @@
 
 (require odysseus)
 (require odysseus/report/csv)
-(require tabtree)
+(require tabtree/tabtree1)
 (require "../lib/functions.rkt")
 (require "../lib/settings.rkt")
 
