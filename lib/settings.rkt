@@ -11,7 +11,7 @@
 (define TOPIC_AREA_TABTREE_PARTS
           (list
             ; (TabtreePart "/home/denis/projects/worlds/hi_world/hi_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp)
-            (TabtreePart "/home/denis/projects/worlds/history-facts/hi_vk.tree" 'all)
+            (TabtreePart "../knowledge/history_vk.tree" 'all)
             (TabtreePart "/home/denis/projects/taganoskop/knowledge/history.tree" 'all)
             ))
 (define LOCAL_AREA_TABTREE_PARTS
