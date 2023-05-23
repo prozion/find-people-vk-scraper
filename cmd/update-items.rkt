@@ -1,7 +1,8 @@
 #lang racket
 
 (require odysseus)
-(require tabtree/tabtree1)
+(require odysseus/persistents)
+(require tabtree)
 
 (require "../lib/functions.rkt")
 (require "../lib/settings.rkt")
@@ -11,12 +12,13 @@
   (let*
     (
       ; (old-items (hash-filter (λ (k v) ($ uids v)) old-items))
-      (old-ids (hash-keys h-old-items))
-      (new-ids (map (λ (item) ($ id item)) new-items))
+      (old-ids (map (λ (item) (id item)) (hash-values h-old-items)))
+      (new-items (hash-values new-items))
+      (new-ids (map (λ (item) (id item)) new-items))
       (done-new-ids (intersect new-ids old-ids))
       (not-done-new-ids (minus new-ids old-ids))
-      (h-items-to-stay (hash-filter (λ (uid item) (indexof? done-new-ids uid)) h-old-items))
-      (items-to-add (filter (λ (item) (indexof? not-done-new-ids ($ id item))) new-items)))
+      (h-items-to-stay (hash-filter (λ (uid item) (index-of? done-new-ids (id item))) h-old-items))
+      (items-to-add (filter (λ (item) (index-of? not-done-new-ids (id item))) new-items)))
     (hash-union
       h-items-to-stay
       (get-extended-groups
@@ -33,5 +35,5 @@
       (,persistent-name (add-items current-extended-items (get-items-by-tabtree-parts ,tabtree-parts)))
       (void))))
 
-; (add-extended-items-to-persistent h-topic-items TOPIC_AREA_TABTREE_PARTS)
-(add-extended-items-to-persistent h-local-items LOCAL_AREA_TABTREE_PARTS)
+(add-extended-items-to-persistent h-topic-items TOPIC2_TABTREE_PARTS)
+(add-extended-items-to-persistent h-local-items TOPIC1_TABTREE_PARTS)

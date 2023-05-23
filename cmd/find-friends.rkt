@@ -18,7 +18,7 @@
         (_ (h-uid-friends uid-friends-ext))
         (friend-uids (uniques (no-empty (hash-keys uid-friends-ext))))
         (gid-groups (get-extended-groups
-                                (get-items-by-tabtree-parts TOPIC_AREA_TABTREE_PARTS)
+                                (get-items-by-tabtree-parts TOPIC2_TABTREE_PARTS)
                                 #:existed-extended-groups (h-gid-topic-groups)))
         (_ (h-gid-topic-groups gid-groups))
         (group-uids (uniques (no-empty (flatten (filter-map (λ (item) ($ uids item)) (hash-values gid-groups))))))

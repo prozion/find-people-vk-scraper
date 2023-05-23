@@ -2,10 +2,10 @@
 
 (require compatibility/defmacro)
 (require odysseus)
-(require tabtree/tabtree1)
-(require tabtree/utils1)
-(require odysseus/api/vk)
-(require odysseus/api/csv)
+(require tabtree)
+(require tabtree/utils)
+(require vk)
+(require odysseus/csv)
 
 (require "settings.rkt")
 (require "types.rkt")
@@ -16,7 +16,7 @@
 
 ; (: get-item-type (-> Item IdType))
 (define-catch (get-item-type item)
-  ($* type item))
+  ($ type item))
 
 ; (: user? (-> Item Boolean))
 (define (user? item)
@@ -69,7 +69,7 @@
                     #:existed-extended-groups (existed-extended-groups (hash))
                     #:ignore-i? (ignore-i? #t)
                     #:max-users-limit (max-users-limit #f))
-  (let ((h-alias-gid (map-hash
+  (let ((h-alias-gid (hash-map
                         (λ (gid item) (values ($ vk item) gid))
                         existed-extended-groups)))
       (for/fold
@@ -80,12 +80,12 @@
                 (is-user (user? item))
                 (vk-id (and alias (hash-ref h-alias-gid alias #f)))
                 (vk-id (cond
-                      ((and alias is-group (not vk-id))
-                        (get-gid alias #:delay 0.1 #:display? (format "~n[get-gid ~a]~n" alias)))
-                      ((and alias is-user (not vk-id))
-                        (get-uid alias #:delay 0.1 #:display? (format "~n[get-uid ~a]~n" alias)))
-                      (else
-                        vk-id))))
+                          ((and alias is-group (not vk-id))
+                            (get-gid alias #:delay 0.1 #:display? (format "~n[get-gid ~a]~n" alias)))
+                          ((and alias is-user (not vk-id))
+                            (get-uid alias #:delay 0.1 #:display? (format "~n[get-uid ~a]~n" alias)))
+                          (else
+                            vk-id))))
             (cond
               ; skip if no vk url in item
               ((not vk-id)
@@ -93,7 +93,7 @@
               (($ uids item)
                 (hash-set res vk-id item))
               ; skip if i:<t>
-              ((and ignore-i? ($* i item))
+              ((and ignore-i? ($ i item))
                 res)
               ; skip if number of users is more than max-users-limit
               ((and max-users-limit (> (vk-members-number item) max-users-limit))
@@ -112,7 +112,7 @@
                     #:existed-extended-users (existed-extended-users (hash))
                     #:extract-gids? (extract-gids? #t)
                     #:ignore-i? (ignore-i? #t))
-  (let ((h-alias-uid (map-hash
+  (let ((h-alias-uid (hash-map
                         (λ (uid item) (values ($ vk item) uid))
                         existed-extended-users)))
       (for/fold
@@ -131,7 +131,7 @@
                 res)
               ; (($ gids item)
               ;   (hash-set res vk-id item))
-              ((and ignore-i? ($* i item))
+              ((and ignore-i? ($ i item))
                 res)
               ((hash-ref existed-extended-users vk-id #f)
                 (hash-set res vk-id (hash-ref existed-extended-users vk-id)))
@@ -153,7 +153,7 @@
                   ))))))))
 
 (define-catch (add-count ext-users cnt)
-  (map-hash (λ (k v) (values k (hash-union (hash 'count cnt) v)))
+  (hash-map (λ (k v) (values k (hash-union (hash 'count cnt) v)))
             ext-users))
 
 ; knowledge-takers format: (list (hash 'file <path-to-tabtree> 'take '<path-to-section-extracted>) ...)
@@ -162,7 +162,7 @@
     ((res empty))
     ((tabtree-part tabtree-parts))
     (let* ((base-tabtree-filepath (TabtreePart-filepath tabtree-part))
-          (all-tree (parse-tab-tree base-tabtree-filepath))
+          (all-tree (parse-tabtree base-tabtree-filepath))
           (knowledge-path (TabtreePart-treepath tabtree-part))
           (knowledge-path-lst (string-split (symbol->string knowledge-path) ".")))
       (cond
@@ -225,7 +225,7 @@
           (uids ($ uids item)))
       (cond
         ((not uids) res)
-        ((indexof? uids uid)
+        ((index-of? uids uid)
           (cond
             (pick-group-name?
                 (pushr res gname))

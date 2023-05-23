@@ -1,7 +1,8 @@
 #lang racket
 
 (require odysseus)
-(require tabtree/tabtree1)
+(require odysseus/persistents)
+(require tabtree)
 (require racket/serialize)
 (require (rename-in racket/hash (hash-union hash-union-racket)))
 
@@ -10,7 +11,9 @@
 
 (persistent h-local-items)
 (persistent h-local-uid-score)
-(persistent uids-selected)
+(persistent h-topic-items)
+(persistent h-topic-uid-score)
+; (persistent uids-selected)
 
 (define (get-score h-items)
   (if (hash-empty? h-items)
@@ -27,8 +30,10 @@
 
 (define-catch (score-uids)
   (--- "getting a score of users")
-  (let* ((uid-score (get-score (h-local-items))))
-    (h-local-uid-score uid-score)
+  (let* ((local-score (get-score (h-local-items)))
+        (topic-score (get-score (h-topic-items))))
+    (h-local-uid-score local-score)
+    (h-topic-uid-score topic-score)
     #t))
 
 (score-uids)
