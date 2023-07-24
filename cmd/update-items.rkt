@@ -36,5 +36,5 @@
       (void))))
 
 
-(add-extended-items-to-persistent h-topic-items TOPIC2_TABTREE_PARTS)
+(add-extended-items-to-persistent h-topic-items TOPIC2_TABTREE_PARTS) ; red
 (add-extended-items-to-persistent h-local-items TOPIC1_TABTREE_PARTS)
