@@ -8,10 +8,10 @@
 (require tabtree/utils)
 
 ; (define city "volgograd")
-(define city "novosibirsk")
+(define city "irenburg")
 
 (define (find-dup-vks tabtree)
-  (define vks (->> tabtree hash-values (map (λ (item) ($ vk item))) flatten))
+  (define vks (->> tabtree hash-values (map (λ (item) ($ vk item))) flatten cleanmap))
   (->> vks make-frequency-hash (hash-filter (λ (k v) (> v 1)))))
 
 (--- "Dup vks sn.tree:")

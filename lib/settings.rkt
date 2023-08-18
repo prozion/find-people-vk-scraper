@@ -7,7 +7,7 @@
 
 (provide (all-defined-out))
 
-(define city "novosibirsk")
+(define city "orenburg")
 
 (define TOPIC1 city)
 (define TOPIC2 "red")
@@ -36,7 +36,9 @@
 ;             (TabtreePart "/home/denis/denis_personal/my_knowledge/people.tree" 'all)))
 
 ; how frequently to write to the file, when changing persistence
-(define FILE_WRITE_FREQUENCY 50)
+; (define FILE_WRITE_FREQUENCY 50)
+
+(define PERSISTENCE_PER_GROUP_FREQUENCY 5)
 
 ; cache directory for persistent data:
 ; (define CACHE_DIR "_cache")
@@ -46,10 +48,11 @@
 
 (define MIN_MEMBER_TOPIC1 3)
 (define MIN_MEMBER_TOPIC2 3)
-(define MAX_MEMBERS_IN_SCANNED_GROUPS 140000)
-; (define MAX_MEMBERS_IN_SCANNED_GROUPS #f)
+; (define MAX_MEMBERS_IN_SCANNED_GROUPS 120000)
+(define MAX_MEMBERS_IN_SCANNED_GROUPS #f)
 
 ; access tokens for vk.com
 (define AT7 ($ access_token vk/nasevere_1))
+; (define AT7 ($ access_token vk/postagg3_2))
 
 (vk:set-access-token AT7)
