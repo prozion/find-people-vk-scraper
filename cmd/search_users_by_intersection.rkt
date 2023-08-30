@@ -45,7 +45,7 @@
         ((index-of? uids uid)
           (cond
             (pick-group-name?
-                (pushr res item-id))
+                (pushr res (or ($ name item) item-id)))
             (else
                 (pushr res gid))))
         (else res)))))
@@ -80,7 +80,8 @@
                                             (topic-groups (map deidify topic-groups)))
                                         (values
                                           uid
-                                          (hash 'url (uid->url uid)
+                                          (hash
+                                                'url (uid->url uid)
                                                 'local_groups (implode local-groups ", ")
                                                 'topic_groups (implode topic-groups ", ")
                                                 'local_count (length local-groups)
