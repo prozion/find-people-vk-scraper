@@ -38,7 +38,7 @@ Racket - мощный язык написания скриптов для раб
 ...
 
 Также перед запуском необходимо создать директорию
-`$ mkdir -p /var/cache/projects/find-people/rostov_red`
+`$ mkdir -p ~/cache/projects/find-people/rostov_red`
 
 #### Непосредственный запуск скриптов
 
@@ -54,7 +54,7 @@ Racket - мощный язык написания скриптов для раб
 
 Выполнение первого и третьего скрипта может занять много времени (несколько десятков минут), так что держите томик работ Ленина под рукой
 
-В итоге в `/var/cache/projects/find-people/rostov_red` появится файл `rostov_in_red_groups.csv`.
+В итоге в `~/cache/projects/find-people/rostov_red` появится файл `rostov_in_red_groups.csv`.
 
 #### Делаем google таблицу
 
