@@ -13,12 +13,12 @@
 (define TOPIC1_TABTREE_PARTS
           (list
             ; (TabtreePart (format "/home/denis/projects/find_people/knowledge/~a.tree" TOPIC1) 'all)
-            (TabtreePart (format "/home/denis/projects/find_people/for_rp/~a.tree" TOPIC1) 'all)
+            (TabtreePart (format "../for_rp/~a.tree" TOPIC1) 'all)
             ))
 (define TOPIC2_TABTREE_PARTS
           (list
             ; (TabtreePart "/home/denis/projects/worlds/hi_world/hi_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp)
-            (TabtreePart "/home/denis/projects/find_people/knowledge/red.tree" 'all)
+            (TabtreePart "../knowledge/red.tree" 'all)
             ))
 ; (define FRIENDS_TABTREE_PARTS
 ;           (list
