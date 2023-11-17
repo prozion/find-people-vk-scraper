@@ -2,7 +2,8 @@
 
 (require odysseus)
 (require (prefix-in vk: vk))
-(require (file "~/settings/private_settings/APIs.rkt"))
+; (require (file "~/settings/private_settings/APIs.rkt"))
+(require (file "../private_settings/APIs.rkt"))
 (require "types.rkt")
 
 (provide (all-defined-out))
@@ -40,7 +41,7 @@
 (define MAX_MEMBERS_IN_SCANNED_GROUPS #f)
 
 ; access tokens for vk.com
-(define AT7 ($ access_token vk/nasevere_1))
+(define AT7 ($ access_token vk/rp_1))
 ; (define AT7 ($ access_token vk/postagg3_2))
 
 (vk:set-access-token AT7)
