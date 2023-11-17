@@ -9,10 +9,10 @@
 (require "../lib/functions.rkt")
 (require "../lib/settings.rkt")
 
-(persistent h-local-items)
-(persistent h-local-uid-score)
-(persistent h-topic-items)
-(persistent h-topic-uid-score)
+(persistent h-topic1-items)
+(persistent h-topic1-uid-score)
+(persistent h-topic2-items)
+(persistent h-topic2-uid-score)
 ; (persistent uids-selected)
 
 (define (get-score h-items)
@@ -30,10 +30,10 @@
 
 (define-catch (score-uids)
   (--- "getting a score of users")
-  (let* ((local-score (get-score (h-local-items)))
-        (topic-score (get-score (h-topic-items))))
-    (h-local-uid-score local-score)
-    (h-topic-uid-score topic-score)
+  (let* ((local-score (get-score (h-topic1-items)))
+        (topic-score (get-score (h-topic2-items))))
+    (h-topic1-uid-score local-score)
+    (h-topic2-uid-score topic-score)
     #t))
 
 (score-uids)

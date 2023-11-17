@@ -1,0 +1,17 @@
+setup_windows d:"How to setup and launch find-people scripts in Windows"
+	console
+		conemu d:"Convenient console with colored text and other features that you can find in the Linux console"
+			download_conemu url:conemu.github.io/en/Downloads.html
+			install_conemu dest-dir:`c:\denis\bin\conemu`
+			open_conemu_with_keyboard
+				make_shortcut_on_desktop drag-from-dir:'c:\denis\bin\conemu' 
+				assign_kb_combo assign-combo:`Ctrl-Alt-R` d:"Assign it in the shortcut's Properties" 
+	racket d:"Programming language from the Lisp-family with a great support for functional and macro programming paradigm"
+		download_racket url:racket-lang.org/download
+		install_racket dest-dir:'c:\denis\bin\racket'
+		set_racket_path cmd:`set PATH=%PATH%;C:\denis\bin\racket`
+		install_packages cmd:`raco pkg install sha`,`raco pkg install sxml`
+	install_libs
+		odysseus cmd:`raco pkg install odysseus`
+		tabtree cmd:`raco pkg install odysseus`
+	

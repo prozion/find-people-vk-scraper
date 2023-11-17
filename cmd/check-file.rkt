@@ -4,7 +4,7 @@
 (require odysseus/math)
 (require tabtree)
 
-(--- (->> "../knowledge/rostov.tree"
+(--- (->> "../knowledge/ds.tree"
           parse-tabtree
           hash-values
           (map (λ (item) ($ vk item)))
