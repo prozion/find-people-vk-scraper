@@ -31,7 +31,8 @@
 
 ; cache directory for persistent data:
 ; (define CACHE_DIR "_cache")
-(define CACHE_DIR (format "/home/denis/cache/find_people/~a_~a" TOPIC1 TOPIC2))
+; (define CACHE_DIR (format "/home/denis/cache/find_people/~a_~a" TOPIC1 TOPIC2))
+(define CACHE_DIR (format "cache/~a_~a" TOPIC1 TOPIC2))
 (define RESULT_DIR CACHE_DIR)
 (define RESULT_FILENAME (format "~a_in_~a_groups" TOPIC1 TOPIC2))
 
@@ -42,6 +43,7 @@
 
 ; access tokens for vk.com
 (define AT7 ($ access_token vk/rp_1))
+; (define AT7 ($ access_token vk/nasevere_1))
 ; (define AT7 ($ access_token vk/postagg3_2))
 
 (vk:set-access-token AT7)
