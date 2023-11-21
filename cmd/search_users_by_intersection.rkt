@@ -88,7 +88,7 @@
                                                 'topic_count (length topic-groups)))))))
         (_ (--- (format "Detected intersected uids: ~a" (length (hash-keys locals-in-topic2-groups)))))
         )
-    (write-csv-file #:delimeter "\t" '(url local_groups topic_groups local_count topic_count) locals-in-topic2-groups (str RESULT_DIR "/" result-csv-name ".csv"))
+    (write-csv-file #:delimeter "\t" '(url local_groups topic_groups local_count topic_count) locals-in-topic2-groups (str "../" RESULT_DIR "/" result-csv-name ".csv"))
     #t
     ))
 
