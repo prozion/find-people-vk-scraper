@@ -8,8 +8,9 @@
 
 (provide (all-defined-out))
 
-(define TOPIC1 "belgorod")
-(define TOPIC2 "red")
+(define TOPIC1 "belgorod") ; <- Сюда вписывать город
+(define TOPIC2 "red") ; Список левых групп
+
 (define TOPIC1_TABTREE_PARTS
           (list
             ; (TabtreePart (format "/home/denis/projects/find_people/knowledge/~a.tree" TOPIC1) 'all)
@@ -17,33 +18,32 @@
             ))
 (define TOPIC2_TABTREE_PARTS
           (list
-            ; (TabtreePart "/home/denis/projects/worlds/hi_world/hi_vk.tree" 'информационные_технологии.разработка_по.функциональное_программирование.lisp)
-            (TabtreePart "../knowledge/red.tree" 'all)
+            (TabtreePart (format "../knowledge/~a.tree" TOPIC2) 'all)
             ))
-; (define FRIENDS_TABTREE_PARTS
-;           (list
-;             (TabtreePart "/home/denis/denis_personal/my_knowledge/people.tree" 'all)))
 
-; how frequently to write to the file, when changing persistence
-; (define FILE_WRITE_FREQUENCY 50)
-
+; сохранение в файл полученных данных через N считанных пабликов
+; (чтобы в случае сброса коннекта вконтактом не начинать все заново):
 (define PERSISTENCE_PER_GROUP_FREQUENCY 5)
 
-; cache directory for persistent data:
-; (define CACHE_DIR "_cache")
-; (define CACHE_DIR (format "/home/denis/cache/find_people/~a_~a" TOPIC1 TOPIC2))
+; директория, в которую сохраняются считанные данные:
 (define CACHE_DIR (format "cache/~a_~a" TOPIC1 TOPIC2))
 (define RESULT_DIR CACHE_DIR)
+; имя результирующего csv файла:
 (define RESULT_FILENAME (format "~a_in_~a_groups" TOPIC1 TOPIC2))
 
+; минимальное количество пабликов в каждой из групп, в которые должен входить пользоваетль, чтобы попасть в итоговый список:
 (define MIN_MEMBER_TOPIC1 3)
 (define MIN_MEMBER_TOPIC2 3)
+
+; не считывать данные из пабликов, число членов в которых выше указанного числа:
 ; (define MAX_MEMBERS_IN_SCANNED_GROUPS 120000)
-(define MAX_MEMBERS_IN_SCANNED_GROUPS #f)
+(define MAX_MEMBERS_IN_SCANNED_GROUPS #f) ; считываем все паблики
 
 ; access tokens for vk.com
-(define AT7 ($ access_token vk/rp_1))
-; (define AT7 ($ access_token vk/nasevere_1))
-; (define AT7 ($ access_token vk/postagg3_2))
+(define AT ($ access_token vk/rp_1))
+; (define AT ($ access_token vk/nasevere_1))
 
-(vk:set-access-token AT7)
+(vk:set-access-token AT)
+
+; создаем директорию с данными и csv, если таковой еще нет:
+(make-directory* (str "../" RESULT_DIR))
