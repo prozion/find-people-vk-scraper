@@ -7,12 +7,12 @@
 
 (provide (all-defined-out))
 
-(define TOPIC1 "belgorod")
+(define TOPIC1 "fp")
 (define TOPIC2 "red")
 (define TOPIC1_TABTREE_PARTS
           (list
-            ; (TabtreePart (format "/home/denis/projects/find_people/knowledge/~a.tree" TOPIC1) 'all)
-            (TabtreePart (format "../for_rp/~a.tree" TOPIC1) 'all)
+            (TabtreePart (format "/home/denis/projects/find_people/knowledge/~a.tree" TOPIC1) 'all)
+            ; (TabtreePart (format "../for_rp/~a.tree" TOPIC1) 'all)
             ))
 (define TOPIC2_TABTREE_PARTS
           (list
@@ -34,8 +34,8 @@
 (define RESULT_DIR CACHE_DIR)
 (define RESULT_FILENAME (format "~a_in_~a_groups" TOPIC1 TOPIC2))
 
-(define MIN_MEMBER_TOPIC1 3)
-(define MIN_MEMBER_TOPIC2 3)
+(define MIN_MEMBER_TOPIC1 2)
+(define MIN_MEMBER_TOPIC2 5)
 ; (define MAX_MEMBERS_IN_SCANNED_GROUPS 120000)
 (define MAX_MEMBERS_IN_SCANNED_GROUPS #f)
 
@@ -44,3 +44,5 @@
 ; (define AT7 ($ access_token vk/postagg3_2))
 
 (vk:set-access-token AT7)
+
+(make-directory* RESULT_DIR)
